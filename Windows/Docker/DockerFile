@@ -1,0 +1,9 @@
+FROM p47phoenix/dockerimages:jenkins-2.70-windows
+
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+
+RUN Invoke-WebRequest -Uri $('https://download.docker.com/win/stable/InstallDocker.msi' -f $env:JENKINS_VERSION) -UseBasicParsing -OutFile /InstallDocker.msi
+
+RUN [ "msiexec.exe", "/a", "c:\\InstallDocker.msi" ]
+
+CMD ["docker"]
